@@ -1,0 +1,29 @@
+body {
+  background-image: url(https://npr.brightspotcdn.com/dims4/default/88aa75e/2147483647/strip/true/crop/606x369+0+0/resize/880x536!/quality/90/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F0c%2F0a%2Ff536483840afa197f92a413d943e%2Fhank-williams-fest.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vw;
+}
+
+.block {
+  width: 10vw;
+  height: 20vh;
+  background-color: gray;
+  border: 2rem solid black;
+  color: orange;
+  font-size: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
