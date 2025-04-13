@@ -1,33 +1,39 @@
-let numberN = Number (prompt ("Enter your first number.", "1"));
+let number_n = Number(prompt("Enter your number 'N': ", 1));
 
-while (!Number.isInteger (numberN) || numberN == 0) {
-    numberN = Number (prompt ("Enter your first number AGAIN, because the previous result is Not a Number (NaN) or you entered 0. This is an invalid number.", "1"));
-};
+while (!Number.isInteger(number_n) || number_n == 0) {
+  number_n = Number(
+    prompt(
+      "Enter your number 'N' again, the previous input was not an integer or was zero. Type again:",
+      1
+    )
+  );
+}
+document.writeln(`Number N: ${number_n}`);
 
-console.log ("Number N: ", numberN);
+let number_m = Number(prompt("Enter your number 'M': ", 2));
 
-let numberM = Number (prompt ("Enter your second number.", "2"));
+while (!Number.isInteger(number_m) || number_m == 0 || number_m <= number_n) {
+  number_m = Number(
+    prompt(
+      "Enter your number 'M' again, the previous number was not an integer, was zero, or should not be less than the first number N. Type again:",
+      2
+    )
+  );
+}
+document.writeln(`Number M: ${number_m}`);
 
-while (!Number.isInteger (numberM) || numberM == 0 || numberM <= numberN) {
-    numberM = Number (prompt ("Enter your second number AGAIN, because the previous result is Not a Number (NaN) or you entered 0. This is an invalid number. Also, the second number must be bigger than the first.", "2"));
-};
+let is_confirmed = confirm("Do you want to skip even numbers?");
 
-console.log ("Number M: ", numberM);
+let sum_nm = 0;
+let i = number_n;
 
-
-const isConfirmed = (confirm ("Do you want to include even numbers?"));
-
-let resultGeneral = 0;
-
-let i = numberN;
-while (i<=numberM) {
-    if (isConfirmed && i % 2 ===0) {
+while (i <= number_m) {
+  if (is_confirmed && i % 2 === 0) {
     i++;
     continue;
-} else {
-    resultGeneral +=i;
+  } else {
+    sum_nm += i;
+  }
+  i++;
 }
-    i++;
-};
-
-document.writeln ("The result: ", resultGeneral);
+document.writeln(`General result: ${sum_nm}`);
