@@ -1,58 +1,70 @@
 const students = ["Олександр", "Ігор", "Олена", "Іра", "Олексій", "Світлана"];
-const themes = ["Диференційне рівняння", "Теорія автоматів", "Алгоритми і структури даних"];
+const themes = [
+  "Диференційне рівняння",
+  "Теорія автоматів",
+  "Алгоритми і структури даних",
+];
 const marks = [4, 5, 5, 3, 4, 5];
 
 function getPairs(students) {
-let isGirl = [];
-let isBoy = [];
-let studentsPairs = [];
-for (let i=0; i<students.length; i++) {
-    if (students[i].endsWith("а")) {
-    isGirl.push(students[i]);
-} else if (!students[i].endsWith("а")) {
-    isBoy.push(students[i]);
-}
-}
-while (isBoy.length>0 && isGirl.length>0) {
-    studentsPairs.push([isBoy.shift(), isGirl.shift()]);
-}
-return studentsPairs;
+  let women = [];
+  let men = [];
+  let pairs = [];
+
+  for (let i = 0; i < students.length; i++) {
+    if (students[i][students[i].length - 1] == "а") {
+      women.push(students[i]);
+    } else {
+      men.push(students[i]);
+    }
+  }
+
+  let i = 0;
+  while (i < students.length / 2) {
+    pairs.push([men[i], women[i]]);
+    i++;
+  }
+  return pairs;
 }
 
-const themesForStudent = getPairs (students);
-console.log("Got pairs of students: ", themesForStudent);
+console.log(getPairs(students));
 
-function getThemes(themesForStudent, themes) {
-let studentThemes = [];
-for (let i=0; i<themes.length; i++) {
-let studentPairThemes = [themesForStudent[i][0], themesForStudent[i][1], themes[i]];
-studentThemes.push(studentPairThemes);
-}
-return studentThemes;
+const pair = getPairs(students);
+
+function getThemes(pair, theme) {
+  let getTheme = [];
+
+  for (let i = 0; i < pair.length; i++) {
+    getTheme.push([pair[i][0], pair[i][1], theme[i]]);
+  }
+  return getTheme;
 }
 
-const studentProject = getThemes(themesForStudent, themes)
-console.log("Got theme of project of students: ",studentProject);
+console.log(getThemes(pair, themes));
 
 function getMarks(students, marks) {
-let studentsMarks = [];
-for (let i=0; i<students.length; i++) {
+  let studentsMarks = [];
+  for (let i = 0; i < students.length; i++) {
     studentsMarks.push([students[i], marks[i]]);
-}
-return studentsMarks;
-}
-
-console.log("Got marks of students: ",getMarks(students, marks));
-
-function generalStudentResult(themesForStudent, studentProject) {
-let generalStudentResult = [];
-let correctResult;
-for (let i=0; i<studentProject.length; i++) {
-    let randomMarks = Math.floor (Math.random () * (6-1) + 1);
-    correctResult = [themesForStudent[i][0],themesForStudent[i][1],studentProject[i][2], randomMarks];
-    generalStudentResult.push(correctResult);
-}
-return generalStudentResult;
+  }
+  return studentsMarks;
 }
 
-console.log("Got random marks of students for project work: ", generalStudentResult(themesForStudent, studentProject));
+console.log(getMarks(students, marks));
+
+const pairAndThemes = getThemes(pair, themes);
+
+function getProjectMark(pairTheme) {
+  let projectResult = [];
+  for (let i = 0; i < pairTheme.length; i++) {
+    projectResult.push([
+      pairTheme[i][0],
+      pairTheme[i][1],
+      pairTheme[i][2],
+      Math.floor(Math.random() * (5 - 1 + 1) + 1),
+    ]);
+  }
+  return projectResult;
+}
+
+console.log(getProjectMark(pairAndThemes));

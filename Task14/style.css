@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&family=Griffy&display=swap");
+
+* {
+  font-family: "Elsie", serif;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ff007f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
+h3 {
+  font-weight: 900;
+}
+
+.myDate,
+h3,
+.addTaskWithButton,
+.addNewTask,
+.inputAdded,
+input[type="submit"] {
+  color: white;
+}
+
+#day {
+  background-color: #393f48;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.addTaskWithButton,
+.addNewTask,
+.inputAdded {
+  background-color: rgb(55, 57, 62);
+  border: 5px solid rgb(55, 57, 62);
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date > div {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.addTaskWithButton,
+.inputAdded {
+  display: grid;
+  grid-template-columns: 40vw 9vw;
+}
+
+input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+}
+
+input,
+label,
+select,
+.reset {
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  background-color: #ff007f;
+  border: 5px double rgb(55, 57, 62);
+}
+
+.reset {
+  background-color: #ff007f;
+  border: 5px double rgb(55, 57, 62);
+  color: white;
+  width: 80px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.reset:hover {
+  transform: scale(1.2);
+  color: rgb(55, 57, 62);
+}
+
+.pinned {
+  background-color: #ff007f;
+}
+
+@media (max-width: 680px) {
+  body {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 460px) {
+  .addTaskWithButton,
+  .inputAdded {
+    grid-template-columns: 190px 40px;
+  }
+}

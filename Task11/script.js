@@ -1,23 +1,14 @@
-function getRandomChinese(length) {
-  return new Promise((resolve, reject) => {
-    let result = "";
-    const delay = length * 50;
-
-    const generateChinese = (num) => {
-      const chineseCode = Date.now();
-      num = chineseCode % Math.pow(10, length);
-      result += String.fromCharCode(num);
-      if (result.length < length) {
-        setTimeout(generateChinese, delay);
-      } else {
-        resolve(result);
-      }
-    };
-    setTimeout(generateChinese, delay);
-  });
+async function getRandomChinese(_length = 5) {
+  let chineseSymbol = "";
+  for (let i = 0; i < _length; i++) {
+    await new Promise((resolve) => setTimeout(resolve, _length * 50));
+    chineseSymbol += String.fromCharCode(
+      Number(String(Date.now()).slice(-5)) + i
+    );
+  }
+  return chineseSymbol;
 }
 
-getRandomChinese(4)
-  .then((result) => {
-    console.log(result);
-  });
+getRandomChinese(10).then((response) =>
+  console.log(`Your random chinese symbols: ${response}`)
+);

@@ -7,14 +7,45 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="all_btn">
+    <div>
+      <button class="btn_get_inf">Get information about films 2</button>
+      <div class="wrapperItem">
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+        <p class="item"></p>
+      </div>
       <div>
-        <button class="heroes_btn">Get information about heroes</button>
+        <label for="films">Get information about other films (only 1-6)</label>
+        <input
+          type="number"
+          name="films"
+          id="films"
+          min="1"
+          max="6"
+          placeholder="Type number: 1"
+        />
+        <button class="otherFilms">Get other films</button>
       </div>
-      <div class="planets">
-        <button class="planets_btn">Get information about planets</button>
-        <button class="next_btn">Next</button>
+      <div class="otherWrapper"></div>
+      <div>
+        <button id="btn_get_planets">Get planets</button>
+        <button id="btn_get_next_planets">Get next planets</button>
       </div>
+      <div class="wrapperPlanets"></div>
+      <!-- <button id="uploadButton" class="btn_get_translate">Get wookiee page</button> -->
     </div>
     <script src="script.js"></script>
   </body>

@@ -1,17 +1,40 @@
-const button = document.querySelector(".btn");
-
-function* createdGenerator() {
-  let id = 0;
+function* createIdGenerator() {
+  let i = 1;
   while (true) {
-    yield id++;
+    yield i++;
   }
 }
 
-const idGenerator = createdGenerator();
+const idGenerator = createIdGenerator();
 
-function createID() {
-  let createdID = idGenerator.next().value;
-  button.textContent = "Your identifier: " + createdID;
+const id = document.querySelector(".getID");
+id.addEventListener("click", () => {
+  id.innerHTML = `Your ID: ${idGenerator.next().value}`;
+});
+
+function* newFontGenerator(i) {
+  let upDown;
+  while (true) {
+    upDown = yield i;
+    if (upDown === "up") {
+      i += 2;
+    } else if (upDown === "down") {
+      i -= 2;
+    }
+  }
 }
+const fontGenerator = newFontGenerator(16);
 
-button.addEventListener("click", createID);
+const upF = document.querySelector(".up");
+const downF = document.querySelector(".down");
+const body = document.querySelector("body");
+
+upF.addEventListener("click", () => {
+  fontGenerator.next().value;
+  body.style.fontSize = `${fontGenerator.next("up").value}px`;
+});
+
+downF.addEventListener("click", () => {
+  fontGenerator.next().value;
+  body.style.fontSize = `${fontGenerator.next("down").value}px`;
+});

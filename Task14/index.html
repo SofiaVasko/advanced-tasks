@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My to-do list</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <img
+      class="todoImg"
+      width="250px"
+      height="200px"
+      src="img/pngwing.com.png"
+      alt="To do icon"
+    />
+    <section id="day">
+      <div class="date">
+        <div>
+          <h3>Your efficient day</h3>
+          <img
+            src="img/todo.png"
+            alt="To do list icon"
+            width="34px"
+            height="34px"
+          />
+        </div>
+        <h1 class="myDate"></h1>
+      </div>
+      <div class="addTaskWithButton">
+        <input
+          class="addNewTask"
+          type="text"
+          name="Add a task"
+          placeholder="🖋 Add a task..."
+        />
+        <input id="button" type="submit" name="Add a task" value="+" />
+      </div>
+    </section>
+    <button class="reset">Reset all</button>
+    <script src="script.js"></script>
+  </body>
+</html>

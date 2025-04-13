@@ -1,54 +1,110 @@
 class Student {
-  constructor(course, university, fullName) {
+  constructor(university, course, fullName, marks) {
     this.university = university;
     this.course = course;
     this.fullName = fullName;
-    this.studentMarks = [5, 4, 4, 5];
+    this.marks = marks;
     this.isDissmissed = false;
-    this.isRecovered = false;
   }
+
   getInfo() {
-    return `Студент ${this.course}го курсу ${this.university} м. Одеса, ${this.fullName}`;
-  }
-  get marks() {
-    return this.studentMarks;
+    return `Студент ${this.course}-ого курсу ${this.university} ${this.fullName}`;
   }
 
-  set marks(val) {
-    this.studentMarks.push(val);
+  get totalMark() {
+    return this.marks;
   }
 
-  getAverageMark() {
-    const sum = this.marks.reduce((previous, current) => previous + current, 0);
-    const averageMark = sum / this.marks.length;
-    return averageMark;
-  }
-
-  dismiss() {
-    if (!this.isDissmissed) {
-      this.isDissmissed = true;
-      return (this.studentMarks = null);
+  set totalMark(newMarks) {
+    if (typeof newMarks === "number" && Array.isArray(this.marks)) {
+      this.marks = this.marks.concat(newMarks);
     }
   }
 
+  getAverageMark() {
+    return this.marks.reduce((acc, item) => acc + item, 0) / this.marks.length;
+  }
+
+  dismiss() {
+    this.isDissmissed = true;
+    this.copyMarks = [...this.marks];
+    return (this.copyMarks = null);
+  }
+
   recover() {
-    if (!this.isRecovered) {
-      this.isDissmissed = false;
-      return (this.studentMarks = [5, 4, 4, 5, 5]);
+    this.isDissmissed = false;
+    return this.marks;
+  }
+}
+
+class BudgetSudent extends Student {
+  constructor(university, course, fullName, marks) {
+    super(university, course, fullName, marks);
+    this.scholarShipAdvanced = 2200;
+    this.scholarShipTypical = 1440;
+    this.timer();
+  }
+  timer() {
+    setInterval(() => {
+      this.getScholarShip();
+    }, 60000);
+  }
+  getScholarShip() {
+    if (+this.getAverageMark().toFixed() === 5 && !this.isDissmissed) {
+      console.log(
+        `Ви отримали ${this.scholarShipAdvanced} грн. стипендії. Вітаємо!`
+      );
+      return `Шановний ${this.fullName}, Ваша стипендія складає:  ${this.scholarShipAdvanced} грн.`;
+    } else if (+this.getAverageMark().toFixed() === 4 && !this.isDissmissed) {
+      console.log(
+        `Ви отримали ${this.scholarShipTypical} грн. стипендії. Вітаємо!`
+      );
+      return `Шановний ${this.fullName}, Ваша стипендія складає: ${this.scholarShipTypical} грн.`;
+    } else if (this.isDissmissed || +this.getAverageMark().toFixed() < 4) {
+      console.log(`Стипендія для Вас недоступна.`);
+      return `Шановний ${this.fullName}, Ваша стипендія складає: 0 грн.`;
     }
   }
 }
 
-let student1 = new Student(
+const student = new BudgetSudent(
+  "Вищої Школи Психотерапії м. Одеса",
   1,
-  "Вищої Школи Психотерапії",
-  "Остап Родоманський Бендер"
+  "Остап Родоманський Бендер",
+  [5, 4, 4, 5]
 );
 
-console.log(student1.getInfo());
-console.log(student1.marks);
-student1.marks = 5;
-console.log(student1.marks);
-console.log(student1.getAverageMark());
-console.log("Ostap Bender is dismissed:", student1.dismiss());
-console.log("Ostap Bender is recovered:", student1.recover());
+console.log(student.getInfo());
+student.totalMark = 4;
+console.log(student.getAverageMark());
+console.log(student.dismiss());
+console.log(student.recover());
+console.log(student.getScholarShip());
+
+const student2 = new BudgetSudent(
+  "ЛНУ ім. І. Франка",
+  3,
+  "Лесик Степанович Фішка",
+  [5, 5, 5, 5]
+);
+
+console.log(student2.getInfo());
+student2.totalMark = 5;
+console.log(student2.getAverageMark());
+console.log(student2.dismiss());
+console.log(student2.recover());
+console.log(student2.getScholarShip());
+
+const student3 = new BudgetSudent(
+  "НУЛП",
+  2,
+  "Віктор Андрійович Тарасюк",
+  [2, 1, 2, 3]
+);
+
+console.log(student3.getInfo());
+student3.totalMark = 5;
+console.log(student3.getAverageMark());
+console.log(student3.dismiss());
+console.log(student3.recover());
+console.log(student3.getScholarShip());

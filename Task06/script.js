@@ -28,89 +28,160 @@ const students = [
   },
 ];
 
-function getSubjects(students) {
-  const subjectToUpper = Object.keys(students.subjects).map(function (subject) {
-    return subject
-      .replace(new RegExp("_", "g"), " ")
-      .split(" ")
-      .map(function (word) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      })
-      .join(" ");
+function getSubjectStudents(students) {
+  let subjects = Object.keys(students.subjects).map((item) => {
+    let modifier = item.replace("_", " ");
+    let result = modifier[0].toUpperCase() + modifier.slice(1, item.length);
+    if (result.match("science")) {
+      return result.replace("science", "Science");
+    }
+    return result;
   });
-  return subjectToUpper;
-}
-console.log(getSubjects(students[1]));
-
-function getAverageMark(marks) {
-  const marksResult = Object.values(marks.subjects).map(function (item) {
-    let averageResult =
-      item.reduce(function (total, mark) {
-        return total + mark;
-      }, 0) / item.length;
-    return averageResult;
-  });
-  let generalSum =
-    marksResult.reduce(function (total, result) {
-      return total + result;
-    }, 0) / Object.keys(marks.subjects).length;
-  return generalSum.toFixed(2);
+  return subjects;
 }
 
-console.log(getAverageMark(students[2]));
+console.log(getSubjectStudents(students[0]));
 
-function getStudentInfo(inf) {
-  const course = inf.course;
-  const name = inf.name;
-  const resultMarks = getAverageMark(inf);
+function getAverageMarks(students) {
+  let marks = Object.values(students.subjects);
+  let generalMarks = marks[0].concat(marks[1], marks[2]);
+  let average =
+    generalMarks.reduce((acc, item) => acc + item) / generalMarks.length;
+
+  return average.toFixed(2);
+}
+
+console.log(getAverageMarks(students[2]));
+
+const averageMarks = getAverageMarks(students[2]);
+
+function getStudentInfo(students, marks) {
   return {
-    course,
-    name,
-    averageMark: resultMarks,
+    name: students["name"],
+    course: students["course"],
+    averageMark: marks,
   };
 }
 
-console.log(getStudentInfo(students[2]));
+console.log(getStudentInfo(students[2], averageMarks));
 
-function getStudentsNames(students) {
-  let nameStudents = students.map(function (student) {
-    return student.name;
-  });
-  let getNames = nameStudents.sort(function (a, b) {
-    if (a > b) {
-      return 1;
-    }
-    if (a < b) {
-      return -1;
-    }
-    return 0;
-  });
-  return getNames;
+function getStudentNames(students) {
+  return [students[0].name]
+    .concat(students[1].name, students[2].name)
+    .sort((a, b) => a.localeCompare(b));
 }
 
-console.log(getStudentsNames(students));
+console.log(getStudentNames(students));
 
-function getBestStudent(best) {
-  let bestStudent = 0;
-  let bestMarks = 0;
-  for (let i = 0; i < best.length; i++) {
-    let justMark = getAverageMark(best[i]);
-    if (justMark > bestMarks) {
-      bestMarks = justMark;
-      bestStudent = i;
-    }
+students[0]["averageMark"] = Number(getAverageMarks(students[0]));
+students[1]["averageMark"] = Number(getAverageMarks(students[1]));
+students[2]["averageMark"] = Number(getAverageMarks(students[2]));
+
+function getBestStudent(students) {
+  let studentsNames = [students[0].name].concat(
+    students[1].name,
+    students[2].name
+  );
+  let studentMarks = [students[0].averageMark].concat(
+    students[1].averageMark,
+    students[2].averageMark
+  );
+  let bestMarks = Math.max(...studentMarks);
+
+  for (let i = 0; i < studentMarks.length; i++) {
+    if (bestMarks === studentMarks[i]) return studentsNames[i];
   }
-  return best[bestStudent].name;
 }
 
 console.log(getBestStudent(students));
 
-function calculateWordLetters(text) {
-  let calculateWord = text.split("").reduce(function (acc, elem) {
-    acc[elem] = (acc[elem] || 0) + 1;
-    return acc;
-  }, {});
-  return calculateWord;
+function calculateWordLetters(words) {
+  let word = words.split("");
+  let frequency = {};
+  word.forEach((item) => {
+    if (frequency[item]) {
+      frequency[item]++;
+    } else {
+      frequency[item] = 1;
+    }
+  });
+  return frequency;
 }
 
 console.log(calculateWordLetters("тест"));
+
+function getModa(numbers) {
+  let frequency = {};
+  numbers.forEach((item) => {
+    if (frequency[item]) {
+      frequency[item]++;
+    } else {
+      frequency[item] = 1;
+    }
+  });
+  let allItems = Object.values(frequency);
+  let maxItem = Math.max(...allItems);
+
+  for (let item in frequency) {
+    if (maxItem === frequency[item]) return Number(item);
+  }
+}
+
+console.log(
+  getModa([
+    6, 2, 55, 11, 78, 2, 55, 77, 57, 55, 55, 55, 55, 56, 87, 23, 2, 56, 3, 2,
+  ])
+);
+
+function deleteDuplicateLetters(word) {
+  //the classic way
+  let array = word.toLowerCase().replace(new RegExp(/\s+/, "g"), "").split("");
+  let frequency = {};
+
+  array.forEach((item) => {
+    if (frequency[item]) {
+      frequency[item]++;
+    } else {
+      frequency[item] = 1;
+    }
+  });
+
+  let deleteLetters = [];
+
+  for (let item in frequency) {
+    if (frequency[item] > 1) {
+      continue;
+    } else {
+      deleteLetters.push(item);
+    }
+  }
+  return deleteLetters;
+}
+
+console.log(deleteDuplicateLetters("Бісквіт був дуже ніжним"));
+
+function deleteSingleLetters(word) {
+  //the modern way
+  let array = word.toLowerCase().replace(new RegExp(/\s+/, "g"), "").split("");
+  let frequency = {};
+
+  array.forEach((item) => {
+    if (frequency[item]) {
+      frequency[item]++;
+    } else {
+      frequency[item] = 1;
+    }
+  });
+
+  let deleteLetters = [];
+
+  Object.entries(frequency).forEach(([item, count]) => {
+    if (count > 1) {
+      deleteLetters.push(item);
+    }
+  });
+
+  return deleteLetters;
+}
+
+console.log(deleteSingleLetters("Бісквіт був дуже ніжним"));
