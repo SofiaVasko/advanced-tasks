@@ -73,6 +73,17 @@ select,
   cursor: pointer;
 }
 
+.taskDiv {
+  display: flex;
+}
+
+label {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 input[type="submit"] {
   background-color: #ff007f;
   border: 5px double rgb(55, 57, 62);

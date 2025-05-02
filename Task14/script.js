@@ -32,6 +32,7 @@ function addNewTask() {
     generalDiv.classList.add("inputAdded");
 
     const taskDiv = document.createElement("div");
+    taskDiv.classList.add("taskDiv");
 
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
